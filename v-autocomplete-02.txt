@@ -1,0 +1,17 @@
+<template v-slot:item.categoryid="props">
+    <v-edit-dialog id="categoryiddialog" :return-value.sync="props.item.categoryid"
+        @save="tblchallenges_saveitem(props.item)" @cancel="tblchallenges_cancelitem(props.item)"
+        @open="tblchallenges_openitem(props.item)" @close="tblchallenges_closeitem(props.item)" large lazy>
+        <v-chip elevation="0" :color="getcategoryidcolor(props.item)"> {{ getcategoryidvalue(props.item) }}</v-chip>
+        <template v-slot:input>
+            <v-autocomplete item-text="name" item-value="id" item-color="color" :items="accategoryiditems"
+                :label="props.header.text" :loading="props.item.loading" class="mt-2" outlined v-model="props.item.categoryid">
+                <template v-slot:selection="data">
+                    <v-chip v-bind="data.attrs" :color="data.item.color" :input-value="data.selected" @click="data.select">{{ data.item.name }}</v-chip>
+                </template>
+                <template v-slot:item="data">
+                    <v-chip v-bind="data.attrs" :color="data.item.color" :input-value="data.item" @click="data.select">{{ data.item.name }}</v-chip>
+                </template></v-autocomplete>
+        </template>
+    </v-edit-dialog>
+</template>
